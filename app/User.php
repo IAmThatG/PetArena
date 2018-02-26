@@ -1,0 +1,40 @@
+<?php
+
+namespace App;
+
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable
+{
+    use Notifiable;
+
+    protected $table = 'users';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        /*'name',*/ 'email', 'password', 'registration_code'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token'
+    ];
+
+    /**
+     * navigation property that connects user with role
+     */
+    public function role()
+    {
+        $role = $this->hasOne(Role::class);
+        return $role;
+    }
+}
